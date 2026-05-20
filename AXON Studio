@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXON Studio — Premium Digital Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & TOKENS ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070a;--bg2:#0f0f14;--bg3:#161620;--bg4:#1e1e2a;
+  --fg:#f0ede8;--fg2:#9e9b96;--fg3:#56544f;
+  --accent:#5b6cf9;--accent2:#8b5cf6;--accent3:#3b82f6;
+  --green:#10d9a0;--amber:#f59e0b;--red:#f97316;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --r:10px;--r2:16px;--r3:24px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;letter-spacing:-.03em}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit}
+img{display:block}
+ul{list-style:none}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:68px;
+  background:rgba(7,7,10,.8);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;
+  font-weight:800;font-size:1.2rem;letter-spacing:-.02em;cursor:pointer;
+}
+.logo-dot{
+  width:9px;height:9px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 12px var(--accent);animation:blink 2.5s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
+.nav-center{display:flex;gap:2px}
+.nav-link{
+  padding:8px 16px;border-radius:8px;color:var(--fg2);font-size:.875rem;
+  font-weight:500;cursor:pointer;background:none;border:none;
+  transition:all .2s;font-family:'DM Sans',sans-serif;
+}
+.nav-link:hover{color:var(--fg);background:rgba(255,255,255,.06)}
+.nav-link.active{color:var(--fg);background:rgba(255,255,255,.09)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-available{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--green);font-weight:500}
+.nav-available::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.nav-cta{
+  padding:9px 22px;border-radius:9px;background:var(--accent);color:#fff;
+  font-size:.875rem;font-weight:500;transition:all .22s;
+}
+.nav-cta:hover{background:#6d7efb;transform:translateY(-1px);box-shadow:0 8px 24px rgba(91,108,249,.35)}
+
+/* ===== PAGES ===== */
+.page{display:none;min-height:100vh;padding-top:68px}
+.page.active{display:block;animation:pageIn .4s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== UTILITIES ===== */
+.container{max-width:1200px;margin:0 auto;padding:0 48px}
+.section{padding:100px 48px}
+.section-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;
+}
+.section-tag::before{content:'';width:16px;height:1px;background:var(--accent)}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.08;margin-bottom:18px}
+.section-title em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-sub{color:var(--fg2);font-size:1rem;line-height:1.75;font-weight:300;max-width:520px}
+.grid-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px;flex-wrap:wrap}
+
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:10px;background:var(--accent);color:#fff;
+  font-size:.925rem;font-weight:500;border:none;transition:all .25s;
+}
+.btn-primary:hover{background:#6d7efb;transform:translateY(-2px);box-shadow:0 12px 32px rgba(91,108,249,.38)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 26px;border-radius:10px;background:rgba(255,255,255,.06);color:var(--fg);
+  font-size:.925rem;font-weight:500;border:1px solid var(--border2);transition:all .25s;
+}
+.btn-secondary:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:6px;color:var(--accent);
+  font-size:.875rem;font-weight:500;background:none;border:none;
+  transition:gap .2s;
+}
+.btn-ghost:hover{gap:10px}
+
+/* ===== HOME — HERO ===== */
+.hero{
+  min-height:calc(100vh - 68px);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:80px 48px 60px;position:relative;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.orb-a{width:600px;height:600px;background:rgba(91,108,249,.14);top:-150px;left:-180px;animation:orbA 9s ease-in-out infinite}
+.orb-b{width:480px;height:480px;background:rgba(139,92,246,.11);bottom:-100px;right:-140px;animation:orbB 11s ease-in-out infinite}
+.orb-c{width:360px;height:360px;background:rgba(16,217,160,.07);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbC 7s ease-in-out infinite}
+@keyframes orbA{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,35px)}}
+@keyframes orbB{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-50px)}}
+@keyframes orbC{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.12)}}
+.hero-noise{
+  position:absolute;inset:0;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-content{position:relative;z-index:1;max-width:860px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 16px;
+  border-radius:100px;border:1px solid rgba(16,217,160,.3);
+  background:rgba(16,217,160,.08);color:var(--green);
+  font-size:.78rem;font-weight:600;letter-spacing:.04em;margin-bottom:32px;
+}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite}
+.hero h1{
+  font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1.03;
+  letter-spacing:-.05em;margin-bottom:26px;
+}
+.hero-sub{
+  font-size:1.15rem;color:var(--fg2);line-height:1.75;margin-bottom:44px;
+  font-weight:300;max-width:580px;margin-left:auto;margin-right:auto;
+}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:72px}
+.hero-social-proof{border-top:1px solid var(--border);padding-top:40px}
+.trusted-label{font-size:.72rem;color:var(--fg3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;font-weight:600}
+.trusted-logos{display:flex;gap:40px;justify-content:center;align-items:center;flex-wrap:wrap}
+.trusted-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;
+  color:var(--fg3);letter-spacing:.04em;transition:.2s;cursor:default;
+}
+.trusted-logo:hover{color:var(--fg2)}
+
+/* ===== HOME — STATS BAR ===== */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.stat-item{
+  padding:36px 32px;text-align:center;border-right:1px solid var(--border);
+  position:relative;overflow:hidden;transition:.3s;
+}
+.stat-item:last-child{border-right:none}
+.stat-item::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(91,108,249,.06),transparent);
+  opacity:0;transition:.3s;
+}
+.stat-item:hover::before{opacity:1}
+.stat-num{
+  font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;line-height:1;
+  margin-bottom:6px;
+}
+.stat-num span{color:var(--accent)}
+.stat-label{font-size:.8rem;color:var(--fg3);font-weight:400}
+
+/* ===== HOME — SERVICES PREVIEW ===== */
+.services-preview-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);border-radius:var(--r3);overflow:hidden;
+}
+.srv-card{
+  padding:36px 30px;border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  transition:all .3s;position:relative;overflow:hidden;cursor:pointer;
+  background:var(--bg2);
+}
+.srv-card:nth-child(3n){border-right:none}
+.srv-card:nth-child(n+4){border-bottom:none}
+.srv-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(91,108,249,.07),rgba(139,92,246,.04));
+  opacity:0;transition:.3s;
+}
+.srv-card:hover{background:var(--bg3);transform:translateY(-2px)}
+.srv-card:hover::after{opacity:1}
+.srv-icon{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:1.35rem;
+  background:rgba(91,108,249,.12);border:1px solid rgba(91,108,249,.22);
+  margin-bottom:22px;transition:.3s;position:relative;z-index:1;
+}
+.srv-card:hover .srv-icon{background:rgba(91,108,249,.22);transform:scale(1.05)}
+.srv-card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px;position:relative;z-index:1}
+.srv-card p{font-size:.83rem;color:var(--fg2);line-height:1.68;font-weight:300;position:relative;z-index:1}
+.srv-link{
+  display:inline-flex;align-items:center;gap:5px;font-size:.78rem;
+  color:var(--accent);font-weight:500;margin-top:18px;
+  opacity:0;transform:translateX(-8px);transition:.25s;position:relative;z-index:1;
+}
+.srv-card:hover .srv-link{opacity:1;transform:translateX(0)}
+
+/* ===== HOME — WHY US ===== */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:var(--r3);overflow:hidden}
+.why-item{
+  padding:40px 36px;background:var(--bg2);transition:.2s;
+}
+.why-item:hover{background:var(--bg3)}
+.why-num{
+  font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;
+  color:transparent;-webkit-text-stroke:1px var(--border2);margin-bottom:16px;
+  line-height:1;
+}
+.why-item h4{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.why-item p{font-size:.85rem;color:var(--fg2);line-height:1.7;font-weight:300}
+
+/* ===== HOME — TESTIMONIALS ===== */
+.testimonials-wrap{overflow:hidden}
+.testimonials-track{display:flex;gap:20px;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.testi-card{
+  min-width:380px;padding:32px;border-radius:var(--r3);
+  background:rgba(255,255,255,.04);border:1px solid var(--border2);
+  backdrop-filter:blur(10px);flex-shrink:0;
+}
+.testi-stars{color:var(--amber);font-size:.9rem;margin-bottom:16px;letter-spacing:2px}
+.testi-quote{font-size:.92rem;color:var(--fg);line-height:1.75;font-weight:300;margin-bottom:20px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;
+  font-weight:800;font-size:.85rem;flex-shrink:0;
+}
+.testi-name{font-size:.88rem;font-weight:600}
+.testi-company{font-size:.75rem;color:var(--fg3)}
+.testi-controls{display:flex;gap:10px;margin-top:28px}
+.testi-btn{
+  width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);
+  color:var(--fg2);font-size:1rem;transition:.2s;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.testi-btn:hover{background:var(--bg4);color:var(--fg)}
+
+/* ===== HOME — CTA ===== */
+.cta-banner{
+  margin:0 48px 80px;border-radius:var(--r3);padding:72px 60px;
+  background:linear-gradient(135deg,rgba(91,108,249,.18) 0%,rgba(139,92,246,.12) 100%);
+  border:1px solid rgba(91,108,249,.25);text-align:center;position:relative;overflow:hidden;
+}
+.cta-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(91,108,249,.15),transparent);
+}
+.cta-banner-content{position:relative;z-index:1}
+.cta-banner h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:800;margin-bottom:14px;letter-spacing:-.04em}
+.cta-banner p{color:var(--fg2);font-size:1rem;margin-bottom:32px;font-weight:300;line-height:1.7}
+.cta-banner-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ===== SERVICES PAGE ===== */
+.services-hero-section{
+  padding:80px 48px 60px;border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(91,108,249,.04) 0%,transparent 100%);
+}
+.services-layout{display:grid;grid-template-columns:260px 1fr;min-height:70vh}
+.srv-sidebar{
+  border-right:1px solid var(--border);padding:36px 28px;
+  position:sticky;top:68px;max-height:calc(100vh - 68px);overflow-y:auto;align-self:start;
+}
+.srv-sidebar-title{
+  font-size:.68rem;font-weight:700;color:var(--fg3);
+  text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px;
+}
+.srv-nav-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;border-radius:9px;cursor:pointer;margin-bottom:3px;
+  transition:.2s;border:1px solid transparent;
+}
+.srv-nav-item:hover{background:rgba(255,255,255,.05)}
+.srv-nav-item.active{background:rgba(91,108,249,.12);border-color:rgba(91,108,249,.2)}
+.srv-nav-name{font-size:.85rem;font-weight:500;color:var(--fg2);display:flex;align-items:center;gap:8px}
+.srv-nav-item.active .srv-nav-name{color:var(--fg)}
+.srv-status{
+  font-size:.67rem;padding:3px 9px;border-radius:100px;font-weight:600;
+  white-space:nowrap;
+}
+.s-active{background:rgba(16,217,160,.14);color:var(--green)}
+.s-progress{background:rgba(91,108,249,.18);color:var(--accent)}
+.s-pending{background:rgba(255,255,255,.07);color:var(--fg3)}
+.s-done{background:rgba(16,217,160,.1);color:var(--green)}
+
+/* Progress ring in sidebar */
+.sidebar-progress{margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.sidebar-progress-label{font-size:.68rem;color:var(--fg3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:14px}
+.overall-bar{height:5px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;margin-bottom:8px}
+.overall-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:100px;width:35%;transition:width 1.5s ease}
+.overall-pct{font-size:.78rem;color:var(--fg2);font-weight:500}
+
+/* Service detail */
+.srv-detail-panel{padding:44px 48px}
+.srv-detail{display:none}
+.srv-detail.active{display:block;animation:pageIn .35s ease}
+.srv-detail-icon{
+  width:64px;height:64px;border-radius:16px;font-size:2rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(91,108,249,.12);border:1px solid rgba(91,108,249,.22);margin-bottom:24px;
+}
+.srv-detail h2{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;margin-bottom:14px}
+.srv-detail-desc{color:var(--fg2);font-size:.97rem;line-height:1.78;font-weight:300;max-width:620px;margin-bottom:36px}
+
+.deliverables-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:36px}
+.deliverable{
+  padding:20px 22px;border-radius:var(--r2);background:var(--bg2);
+  border:1px solid var(--border);transition:.2s;
+}
+.deliverable:hover{border-color:var(--border2);background:var(--bg3)}
+.deliverable-icon{font-size:1.2rem;margin-bottom:10px}
+.deliverable h4{font-size:.88rem;font-weight:600;margin-bottom:5px}
+.deliverable p{font-size:.78rem;color:var(--fg3);line-height:1.6}
+
+/* Progress tracker per service */
+.srv-progress-box{
+  padding:28px 30px;background:var(--bg2);border-radius:var(--r3);
+  border:1px solid var(--border);margin-bottom:28px;
+}
+.srv-progress-box-title{
+  font-size:.85rem;font-weight:700;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.srv-progress-box-title span{font-size:.78rem;color:var(--fg3);font-weight:400}
+.progress-row{margin-bottom:14px}
+.progress-row:last-child{margin-bottom:0}
+.pr-label{display:flex;justify-content:space-between;margin-bottom:6px}
+.pr-name{font-size:.8rem;color:var(--fg2)}
+.pr-pct{font-size:.8rem;color:var(--accent);font-weight:600}
+.pr-track{height:5px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.pr-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width 1.2s ease .1s}
+
+/* Time estimate */
+.srv-time-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.time-tag{
+  display:flex;align-items:center;gap:6px;font-size:.78rem;
+  padding:7px 14px;border-radius:100px;background:var(--bg3);
+  border:1px solid var(--border);color:var(--fg2);
+}
+
+/* ===== WORK PAGE ===== */
+.work-hero{padding:80px 48px 60px;border-bottom:1px solid var(--border)}
+.work-filters{display:flex;gap:8px;padding:24px 48px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.filter-btn{
+  padding:7px 16px;border-radius:100px;background:transparent;
+  border:1px solid var(--border);color:var(--fg2);font-size:.8rem;
+  font-weight:500;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;
+}
+.filter-btn:hover,.filter-btn.active{background:rgba(91,108,249,.15);border-color:rgba(91,108,249,.3);color:var(--fg)}
+.work-grid-main{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border)}
+.work-card-main{
+  background:var(--bg2);overflow:hidden;cursor:pointer;
+  transition:all .3s;position:relative;
+}
+.work-card-main.featured{grid-column:span 2}
+.work-card-main:hover{background:var(--bg3)}
+.work-thumb{
+  width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.work-card-main.featured .work-thumb{aspect-ratio:21/9}
+.work-thumb-bg{position:absolute;inset:0;transition:transform .6s ease}
+.work-card-main:hover .work-thumb-bg{transform:scale(1.04)}
+.work-thumb-text{position:relative;z-index:1;text-align:center;padding:20px}
+.work-thumb-text h3{font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:6px;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.work-card-main.featured .work-thumb-text h3{font-size:2.6rem}
+.work-thumb-text p{font-size:.85rem;color:rgba(255,255,255,.65)}
+.work-hover-overlay{
+  position:absolute;inset:0;background:rgba(7,7,10,.8);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;transition:.3s;z-index:2;
+}
+.work-card-main:hover .work-hover-overlay{opacity:1}
+.work-hover-btn{
+  padding:11px 24px;border-radius:9px;background:var(--accent);color:#fff;
+  font-size:.875rem;font-weight:500;
+}
+.work-info-bar{
+  padding:22px 28px;border-top:1px solid var(--border);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;
+}
+.work-meta-left h4{font-size:1rem;font-weight:700;margin-bottom:6px}
+.work-tags{display:flex;gap:7px;flex-wrap:wrap}
+.tag{font-size:.7rem;padding:3px 10px;border-radius:100px;background:rgba(255,255,255,.07);color:var(--fg2);font-weight:500}
+.work-metrics{display:flex;gap:22px}
+.metric{text-align:right}
+.metric-val{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--green)}
+.metric-label{font-size:.7rem;color:var(--fg3)}
+
+/* ===== PROCESS PAGE ===== */
+.process-hero{padding:80px 48px 60px;border-bottom:1px solid var(--border)}
+.process-layout-grid{display:grid;grid-template-columns:1fr 320px;gap:0;min-height:70vh}
+.process-track{padding:52px 48px;border-right:1px solid var(--border)}
+.process-sidebar-panel{padding:40px 32px;position:sticky;top:68px;align-self:start}
+
+/* Timeline steps */
+.timeline-step{display:grid;grid-template-columns:72px 1fr;gap:0;position:relative}
+.timeline-step:not(:last-child)::before{
+  content:'';position:absolute;left:35px;top:72px;
+  width:2px;height:calc(100% - 20px);
+  background:linear-gradient(to bottom,rgba(91,108,249,.35),rgba(91,108,249,.05));
+}
+.step-indicator{display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.step-circle{
+  width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:.9rem;font-weight:800;border:2px solid;
+  position:relative;z-index:1;flex-shrink:0;transition:.4s;
+}
+.step-circle.done{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 20px rgba(91,108,249,.45)}
+.step-circle.current{background:rgba(91,108,249,.15);border-color:var(--accent);color:var(--accent);animation:stepGlow 2.5s ease-in-out infinite}
+.step-circle.upcoming{background:var(--bg2);border-color:var(--border2);color:var(--fg3)}
+@keyframes stepGlow{0%,100%{box-shadow:0 0 0 0 rgba(91,108,249,.4)}50%{box-shadow:0 0 0 12px rgba(91,108,249,0)}}
+
+.step-body{padding:4px 0 52px 28px}
+.step-status-pill{
+  display:inline-block;font-size:.68rem;padding:3px 10px;border-radius:100px;
+  font-weight:700;margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase;
+}
+.pill-done{background:rgba(16,217,160,.12);color:var(--green)}
+.pill-current{background:rgba(91,108,249,.18);color:var(--accent)}
+.pill-upcoming{background:rgba(255,255,255,.07);color:var(--fg3)}
+.step-body h3{font-size:1.4rem;font-weight:800;margin-bottom:10px}
+.step-body>p{color:var(--fg2);font-size:.9rem;line-height:1.75;font-weight:300;margin-bottom:20px}
+
+.task-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.task-item{
+  display:flex;align-items:center;gap:10px;padding:9px 14px;
+  border-radius:9px;background:var(--bg2);border:1px solid var(--border);font-size:.83rem;
+  transition:.2s;
+}
+.task-item:hover{border-color:var(--border2)}
+.task-icon{
+  width:20px;height:20px;border-radius:5px;display:flex;align-items:center;
+  justify-content:center;font-size:.65rem;flex-shrink:0;font-weight:700;
+}
+.ti-done{background:var(--green);color:#000}
+.ti-current{background:rgba(91,108,249,.25);color:var(--accent)}
+.ti-upcoming{background:rgba(255,255,255,.07);color:var(--fg3)}
+.task-text{color:var(--fg2)}
+.task-text.done-text{color:var(--fg);text-decoration:line-through;text-decoration-color:var(--fg3)}
+
+.step-meta-row{display:flex;gap:10px;flex-wrap:wrap}
+.step-chip{
+  display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--fg3);
+  padding:5px 12px;background:var(--bg2);border-radius:100px;border:1px solid var(--border);
+}
+
+/* Process sidebar panel */
+.psb-title{font-size:.72rem;font-weight:700;color:var(--fg3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+.psb-card{padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:14px}
+.psb-card-title{font-size:.82rem;font-weight:600;margin-bottom:6px}
+.psb-card-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--accent)}
+.psb-card-sub{font-size:.75rem;color:var(--fg3);margin-top:2px}
+
+.psb-progress{padding:20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:14px}
+.psb-prog-row{margin-bottom:12px}
+.psb-prog-row:last-child{margin-bottom:0}
+.psb-prog-label{display:flex;justify-content:space-between;margin-bottom:5px;font-size:.75rem;color:var(--fg2)}
+.psb-prog-track{height:4px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden}
+.psb-prog-fill{height:100%;border-radius:100px;transition:width 1.4s ease}
+.fill-green{background:var(--green)}
+.fill-accent{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.fill-amber{background:var(--amber)}
+.fill-bg{background:rgba(255,255,255,.1)}
+
+/* ===== ABOUT PAGE ===== */
+.about-hero{padding:80px 48px 60px;border-bottom:1px solid var(--border)}
+.about-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  padding:80px 48px;align-items:center;border-bottom:1px solid var(--border);
+}
+.about-visual-box{
+  border-radius:var(--r3);background:var(--bg2);border:1px solid var(--border);
+  aspect-ratio:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:12px;position:relative;overflow:hidden;
+}
+.about-orb{
+  position:absolute;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(91,108,249,.25),transparent);
+  filter:blur(40px);
+}
+.about-visual-content{position:relative;z-index:1;text-align:center}
+.big-year{
+  font-family:'Syne',sans-serif;font-size:6rem;font-weight:800;
+  color:transparent;-webkit-text-stroke:2px rgba(91,108,249,.4);line-height:1;
+}
+.about-visual-content p{color:var(--fg2);font-size:.9rem;font-weight:300}
+.about-text-side h2{font-size:2.4rem;font-weight:800;line-height:1.1;margin-bottom:20px}
+.about-text-side p{color:var(--fg2);font-size:.97rem;line-height:1.8;font-weight:300;margin-bottom:16px}
+
+.values-section{padding:80px 48px;border-bottom:1px solid var(--border)}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.value-card{
+  padding:30px;border-radius:var(--r3);background:var(--bg2);
+  border:1px solid var(--border);transition:.25s;
+}
+.value-card:hover{background:var(--bg3);border-color:var(--border2);transform:translateY(-3px)}
+.val-icon{font-size:1.8rem;margin-bottom:16px}
+.value-card h4{font-size:1rem;font-weight:700;margin-bottom:10px}
+.value-card p{font-size:.83rem;color:var(--fg2);line-height:1.68;font-weight:300}
+
+.team-section{padding:80px 48px}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.team-card{
+  padding:30px 22px;border-radius:var(--r3);background:var(--bg2);
+  border:1px solid var(--border);text-align:center;transition:.25s;
+}
+.team-card:hover{background:var(--bg3);transform:translateY(-4px);border-color:rgba(91,108,249,.2)}
+.avatar-ring{
+  width:70px;height:70px;border-radius:50%;margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:#fff;
+  box-shadow:0 0 30px rgba(91,108,249,.3);
+}
+.team-name{font-size:.97rem;font-weight:700;margin-bottom:4px}
+.team-role{font-size:.78rem;color:var(--fg3);margin-bottom:12px}
+.team-skills{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.skill-pill{font-size:.68rem;padding:3px 9px;border-radius:100px;background:rgba(91,108,249,.1);color:var(--accent);font-weight:500}
+
+/* ===== FOOTER ===== */
+footer{
+  border-top:1px solid var(--border);padding:48px;
+  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+  flex-wrap:wrap;
+}
+.footer-left p{font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300}
+.footer-right{display:flex;align-items:center;gap:20px}
+.footer-link{font-size:.82rem;color:var(--fg3);cursor:pointer;transition:.2s}
+.footer-link:hover{color:var(--fg2)}
+.footer-divider{color:var(--fg3);font-size:.8rem}
+
+/* ===== CONTACT MODAL ===== */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(7,7,10,.85);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.modal-overlay.open{display:flex;animation:pageIn .3s ease}
+.modal-box{
+  width:100%;max-width:540px;border-radius:var(--r3);
+  background:var(--bg2);border:1px solid var(--border2);
+  padding:44px;position:relative;max-height:90vh;overflow-y:auto;
+}
+.modal-close{
+  position:absolute;top:18px;right:18px;width:32px;height:32px;
+  border-radius:8px;background:var(--bg3);border:none;color:var(--fg2);
+  font-size:1.1rem;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-close:hover{background:var(--bg4);color:var(--fg)}
+.modal-box h2{font-size:1.7rem;font-weight:800;margin-bottom:8px}
+.modal-box p{color:var(--fg2);font-size:.88rem;margin-bottom:28px;font-weight:300}
+.form-group{margin-bottom:16px}
+.form-label{font-size:.78rem;font-weight:600;color:var(--fg2);margin-bottom:6px;display:block}
+.form-input,.form-textarea,.form-select{
+  width:100%;padding:12px 14px;border-radius:9px;
+  background:var(--bg3);border:1px solid var(--border);color:var(--fg);
+  font-size:.88rem;font-family:'DM Sans',sans-serif;outline:none;transition:.2s;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--accent);background:var(--bg4)}
+.form-textarea{resize:vertical;min-height:100px}
+.form-select option{background:var(--bg3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-submit{
+  width:100%;padding:14px;border-radius:10px;background:var(--accent);color:#fff;
+  font-size:.9rem;font-weight:600;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all .25s;margin-top:8px;
+}
+.form-submit:hover{background:#6d7efb;transform:translateY(-1px);box-shadow:0 8px 24px rgba(91,108,249,.35)}
+
+/* ===== FAQ SECTION ===== */
+.faq-section{padding:80px 48px;border-top:1px solid var(--border)}
+.faq-list{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-question{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 0;cursor:pointer;font-size:.97rem;font-weight:600;
+  transition:.2s;
+}
+.faq-question:hover{color:var(--accent)}
+.faq-icon{
+  width:26px;height:26px;border-radius:6px;background:var(--bg3);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;font-size:1rem;transition:.3s;flex-shrink:0;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:rgba(91,108,249,.15);border-color:rgba(91,108,249,.3);color:var(--accent)}
+.faq-answer{
+  max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--fg2);
+  font-size:.88rem;line-height:1.78;font-weight:300;
+}
+.faq-item.open .faq-answer{max-height:300px;padding-bottom:20px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:960px){
+  nav{padding:0 20px}
+  .nav-center{display:none}
+  .hero,.section,.services-hero-section,.work-hero,.process-hero,.about-hero,.about-split,.values-section,.team-section{padding-left:20px;padding-right:20px}
+  .cta-banner{margin:0 20px 60px;padding:44px 28px}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .services-preview-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .services-layout,.process-layout-grid{grid-template-columns:1fr}
+  .srv-sidebar,.process-sidebar-panel{position:static;max-height:none;border:none;border-bottom:1px solid var(--border)}
+  .about-split{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .work-grid-main{grid-template-columns:1fr}
+  .work-card-main.featured{grid-column:span 1}
+  .deliverables-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;text-align:center}
+  .footer-right{justify-content:center}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="nav">
+  <div class="logo" onclick="navigate('home')">
+    <div class="logo-dot"></div>AXON Studio
+  </div>
+  <div class="nav-center">
+    <button class="nav-link active" data-page="home" onclick="navigate('home')">Home</button>
+    <button class="nav-link" data-page="services" onclick="navigate('services')">Services</button>
+    <button class="nav-link" data-page="work" onclick="navigate('work')">Work</button>
+    <button class="nav-link" data-page="process" onclick="navigate('process')">Process</button>
+    <button class="nav-link" data-page="about" onclick="navigate('about')">About</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-available">Available for 2026</div>
+    <button class="nav-cta" onclick="openContact()">Start a Project</button>
+  </div>
+</nav>
+
+<!-- ================================================================ HOME ================================================================ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-orb orb-a"></div>
+      <div class="hero-orb orb-b"></div>
+      <div class="hero-orb orb-c"></div>
+      <div class="hero-noise"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>Accepting new projects</div>
+      <h1>We craft digital<br>products that <em>scale</em><br>&amp; convert.</h1>
+      <p class="hero-sub">AXON Studio is a premium digital agency. We partner with ambitious companies to design, build, and grow world-class products from idea to launch.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="navigate('work')">View Our Work &rarr;</button>
+        <button class="btn-secondary" onclick="navigate('process')">How We Work</button>
+      </div>
+      <div class="hero-social-proof">
+        <div class="trusted-label">Trusted by forward-thinking brands</div>
+        <div class="trusted-logos">
+          <span class="trusted-logo">NOVA</span>
+          <span class="trusted-logo">Stratum</span>
+          <span class="trusted-logo">Veltrix</span>
+          <span class="trusted-logo">Orbis&nbsp;AI</span>
+          <span class="trusted-logo">Crestline</span>
+          <span class="trusted-logo">Lumos</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">140<span>+</span></div><div class="stat-label">Projects shipped</div></div>
+    <div class="stat-item"><div class="stat-num">98<span>%</span></div><div class="stat-label">Client satisfaction</div></div>
+    <div class="stat-item"><div class="stat-num">6<span>yr</span></div><div class="stat-label">In the industry</div></div>
+    <div class="stat-item"><div class="stat-num">3.2<span>×</span></div><div class="stat-label">Avg revenue growth</div></div>
+  </div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="section">
+    <div class="grid-row">
+      <div>
+        <div class="section-tag">What we do</div>
+        <h2 class="section-title">Services built to<br><em>drive results</em></h2>
+      </div>
+      <div class="section-sub">We combine strategy, design, and engineering to build products your users love and your business depends on.</div>
+    </div>
+    <div class="services-preview-grid">
+      <div class="srv-card" onclick="navigate('services','web')">
+        <div class="srv-icon">🌐</div>
+        <h3>Web Development</h3>
+        <p>High-performance websites and web apps built on modern stacks. Speed-optimized, scalable, and production-ready from day one.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+      <div class="srv-card" onclick="navigate('services','ux')">
+        <div class="srv-icon">✦</div>
+        <h3>UI/UX Design</h3>
+        <p>Interfaces that convert. From user research and wireframes to pixel-perfect prototypes grounded in real behaviour and data.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+      <div class="srv-card" onclick="navigate('services','brand')">
+        <div class="srv-icon">◈</div>
+        <h3>Branding</h3>
+        <p>Identities built to last. Logo systems, type, colour, and voice that set you apart and communicate your edge at a glance.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+      <div class="srv-card" onclick="navigate('services','seo')">
+        <div class="srv-icon">📈</div>
+        <h3>SEO &amp; Growth</h3>
+        <p>Technical SEO, content strategy, and conversion optimisation to ensure your product gets found, chosen, and remembered.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+      <div class="srv-card" onclick="navigate('services','ai')">
+        <div class="srv-icon">⚡</div>
+        <h3>AI Automation</h3>
+        <p>Custom LLM integrations, intelligent pipelines, and AI-powered workflows that save your team hours every single week.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+      <div class="srv-card" onclick="navigate('services','marketing')">
+        <div class="srv-icon">◎</div>
+        <h3>Digital Marketing</h3>
+        <p>Full-funnel paid media, social, email, and analytics. Campaigns that acquire and retain customers profitably at scale.</p>
+        <span class="srv-link">Explore service &rarr;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section" style="padding-top:0">
+    <div class="grid-row">
+      <div>
+        <div class="section-tag">Why AXON</div>
+        <h2 class="section-title">The principles we<br>never compromise on</h2>
+      </div>
+      <div class="section-sub">Great work requires more than skill — it needs discipline, clarity, and honest collaboration. Here's what that looks like in practice.</div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <h4>Speed without sacrificing quality</h4>
+        <p>We run tight, focused sprints. Decisions move fast, feedback loops are short, and you see real progress every week — not just slide decks.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <h4>Radical transparency</h4>
+        <p>You get a direct line to the people doing the work. No account managers insulating you from reality. Just honest updates and real conversations.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <h4>Design grounded in data</h4>
+        <p>Every decision is backed by user research, competitive analysis, or measurable outcomes. Beautiful and strategic — never just aesthetic.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <h4>We build for the long term</h4>
+        <p>Clean code, scalable architecture, documented systems. We hand over products your team can maintain, extend, and be proud of years later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="padding-top:0">
+    <div class="grid-row">
+      <div>
+        <div class="section-tag">Client stories</div>
+        <h2 class="section-title">Don't just take<br>our word for it</h2>
+      </div>
+      <div>
+        <div class="testi-controls">
+          <button class="testi-btn" onclick="slideTestimonial(-1)">&#8592;</button>
+          <button class="testi-btn" onclick="slideTestimonial(1)">&#8594;</button>
+        </div>
+      </div>
+    </div>
+    <div class="testimonials-wrap">
+      <div class="testimonials-track" id="testiTrack">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"AXON rebuilt our entire SaaS product in 12 weeks. The design is stunning, the code is clean, and our churn dropped by 34% within 3 months of launch. One of the best investments we've made."</div>
+          <div class="testi-author"><div class="testi-avatar">MK</div><div><div class="testi-name">Mira Kovacs</div><div class="testi-company">CEO, NOVA Analytics</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"We came in with a vague idea and AXON turned it into a fully realised brand and product. Their discovery process alone was worth the entire engagement. They just *get* it."</div>
+          <div class="testi-author"><div class="testi-avatar">JL</div><div><div class="testi-name">James Li</div><div class="testi-company">Founder, Orbis Finance</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"The AI automation system AXON built us saves our sales team 22 hours per week and tripled our lead conversion. The ROI was visible within 6 weeks. Genuinely transformative."</div>
+          <div class="testi-author"><div class="testi-avatar">SR</div><div><div class="testi-name">Sofia Reyes</div><div class="testi-company">VP Sales, Veltrix</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"AXON took us from 3k to 38k organic visitors in 6 months. Their SEO and content approach is methodical, transparent, and it works. They're the real deal."</div>
+          <div class="testi-author"><div class="testi-avatar">TW</div><div><div class="testi-name">Tom Walsh</div><div class="testi-company">CMO, Stratum</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-quote">"Working with AXON felt like having a co-founder who happened to be a world-class designer, engineer, and strategist all at once. Absolutely will work with them again."</div>
+          <div class="testi-author"><div class="testi-avatar">PB</div><div><div class="testi-name">Priya Bhatt</div><div class="testi-company">CTO, Crestline</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="section-tag" style="justify-content:center">FAQs</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">How long does a typical project take? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">It depends on scope, but most projects fall into these ranges: branding (3–5 weeks), website design &amp; development (6–12 weeks), full product builds (12–20 weeks). We'll give you a precise timeline during discovery, with milestones and buffers built in.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">What does working with AXON actually look like day to day? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">You'll have direct Slack access to your team, weekly video syncs, and a live project board to track progress. We don't hide behind account managers. You talk to the designers, engineers, and strategists doing the work.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Do you work with early-stage startups or only established companies? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">Both. About half our clients are seed to Series B startups, and the other half are scaling companies with existing products that need a redesign, performance boost, or new feature set. What matters is ambition and clarity — not company size.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">How do you handle post-launch support? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">We offer tiered retainer plans for ongoing support, new feature development, and continuous optimisation. Many clients stay with us on a monthly basis after launch. We also do thorough handover documentation so your team can manage things independently if you prefer.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">What's your pricing structure? <span class="faq-icon">+</span></div>
+        <div class="faq-answer">We work on fixed-scope project pricing rather than hourly rates. This means you know exactly what you're getting and what it costs before we start. Retainers are month-to-month. We'll send a detailed proposal after a discovery call.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-banner-content">
+      <h2>Ready to build something remarkable?</h2>
+      <p>Tell us about your project. We'll come back with a clear plan, honest timeline, and a team that's genuinely excited to work on it.</p>
+      <div class="cta-banner-btns">
+        <button class="btn-primary" onclick="openContact()">Start a conversation &rarr;</button>
+        <button class="btn-secondary" onclick="navigate('work')">See our work first</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ SERVICES ================================================================ -->
+<div class="page" id="page-services">
+  <section class="services-hero-section">
+    <div class="section-tag">Services</div>
+    <h1 style="font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1.04;margin-bottom:16px">Everything your<br>product needs to <em style="font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">win</em></h1>
+    <p style="color:var(--fg2);font-size:1rem;line-height:1.75;font-weight:300;max-width:520px">Six integrated practices. One seamless team. Select a service on the left to see what's included, what we deliver, and where it sits in your project timeline.</p>
+  </section>
+
+  <div class="services-layout">
+    <!-- Sidebar -->
+    <div class="srv-sidebar">
+      <div class="srv-sidebar-title">Our Services</div>
+      <div class="srv-nav-item active" onclick="showService('web')" data-svc="web">
+        <span class="srv-nav-name">🌐 Web Development</span>
+        <span class="srv-status s-active">Active</span>
+      </div>
+      <div class="srv-nav-item" onclick="showService('ux')" data-svc="ux">
+        <span class="srv-nav-name">✦ UI/UX Design</span>
+        <span class="srv-status s-progress">In Review</span>
+      </div>
+      <div class="srv-nav-item" onclick="showService('brand')" data-svc="brand">
+        <span class="srv-nav-name">◈ Branding</span>
+        <span class="srv-status s-pending">Pending</span>
+      </div>
+      <div class="srv-nav-item" onclick="showService('seo')" data-svc="seo">
+        <span class="srv-nav-name">📈 SEO &amp; Growth</span>
+        <span class="srv-status s-pending">Pending</span>
+      </div>
+      <div class="srv-nav-item" onclick="showService('ai')" data-svc="ai">
+        <span class="srv-nav-name">⚡ AI Automation</span>
+        <span class="srv-status s-pending">Pending</span>
+      </div>
+      <div class="srv-nav-item" onclick="showService('marketing')" data-svc="marketing">
+        <span class="srv-nav-name">◎ Digital Marketing</span>
+        <span class="srv-status s-pending">Pending</span>
+      </div>
+
+      <div class="sidebar-progress">
+        <div class="sidebar-progress-label">Overall Project Progress</div>
+        <div class="overall-bar"><div class="overall-fill" id="overallFill"></div></div>
+        <div class="overall-pct">35% Complete</div>
+      </div>
+    </div>
+
+    <!-- Detail panels -->
+    <div class="srv-detail-panel" id="srvDetailPanel">
+
+      <!-- WEB -->
+      <div class="srv-detail active" data-detail="web">
+        <div class="srv-detail-icon">🌐</div>
+        <h2>Web Development</h2>
+        <p class="srv-detail-desc">We build fast, scalable web products using modern frameworks. Every project is performance-first, accessibility-compliant, and handed over with clean, documented code your team can own confidently.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">⚙️</div><h4>Technical Architecture</h4><p>System design, stack selection, and infrastructure planning before a line of code is written.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🎨</div><h4>Frontend Development</h4><p>React / Next.js builds with Tailwind CSS, optimised for Core Web Vitals and mobile-first.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🔌</div><h4>API &amp; Backend</h4><p>Node.js, Supabase, or custom backends — whichever fits your scale and team's capabilities.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🚀</div><h4>Launch &amp; Handover</h4><p>CI/CD setup, Vercel or AWS deployment, performance audit, and full technical documentation.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Current Project Progress <span>NOVA Platform v2</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Discovery &amp; Architecture</span><span class="pr-pct">100%</span></div><div class="pr-track"><div class="pr-fill" style="width:100%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Frontend Development</span><span class="pr-pct">72%</span></div><div class="pr-track"><div class="pr-fill" style="width:72%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Backend &amp; API Integration</span><span class="pr-pct">55%</span></div><div class="pr-track"><div class="pr-fill" style="width:55%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">QA &amp; Performance</span><span class="pr-pct">10%</span></div><div class="pr-track"><div class="pr-fill" style="width:10%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ 6–12 weeks typical</span>
+          <span class="time-tag">📦 Starting at $18,000</span>
+          <span class="time-tag">👥 2–4 person team</span>
+        </div>
+      </div>
+
+      <!-- UX -->
+      <div class="srv-detail" data-detail="ux">
+        <div class="srv-detail-icon">✦</div>
+        <h2>UI/UX Design</h2>
+        <p class="srv-detail-desc">We design interfaces that feel effortless and convert. Our process starts with real user research and ends with production-ready Figma files your developers can hand off without a single question.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">🔍</div><h4>User Research</h4><p>Interviews, surveys, heatmaps, and session recordings to understand what users actually need.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📐</div><h4>Wireframes &amp; IA</h4><p>Low-fidelity wireframes and information architecture that validate structure before visual design.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🖼</div><h4>High-Fidelity Design</h4><p>Pixel-perfect Figma designs with a full component library, responsive breakpoints, and dark mode.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🧪</div><h4>Usability Testing</h4><p>Prototype testing with real users, iteration rounds, and a final validated design system.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Current Status <span>In Client Review</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Research &amp; Discovery</span><span class="pr-pct">100%</span></div><div class="pr-track"><div class="pr-fill" style="width:100%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Wireframes</span><span class="pr-pct">100%</span></div><div class="pr-track"><div class="pr-fill" style="width:100%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Visual Design</span><span class="pr-pct">85%</span></div><div class="pr-track"><div class="pr-fill" style="width:85%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Prototype &amp; Testing</span><span class="pr-pct">40%</span></div><div class="pr-track"><div class="pr-fill" style="width:40%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ 4–8 weeks typical</span>
+          <span class="time-tag">📦 Starting at $9,500</span>
+          <span class="time-tag">👥 1–2 designers</span>
+        </div>
+      </div>
+
+      <!-- BRAND -->
+      <div class="srv-detail" data-detail="brand">
+        <div class="srv-detail-icon">◈</div>
+        <h2>Branding</h2>
+        <p class="srv-detail-desc">We create brand identities that communicate your edge instantly. From naming and strategy through to logo, type, colour, and brand guidelines — everything you need to show up consistently everywhere.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">🧭</div><h4>Brand Strategy</h4><p>Positioning, audience definition, competitive differentiation, and a clear brand narrative.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🎨</div><h4>Visual Identity</h4><p>Logo system, colour palette, typography, iconography, and supporting graphic elements.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📖</div><h4>Brand Guidelines</h4><p>A comprehensive brand book covering usage rules, tone of voice, and do's &amp; don'ts.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📦</div><h4>Asset Production</h4><p>Social templates, pitch deck, business cards, email signatures — ready to use on day one.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Status <span>Not yet started</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Brand Strategy</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Visual Identity</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Guidelines &amp; Assets</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ 3–5 weeks typical</span>
+          <span class="time-tag">📦 Starting at $7,000</span>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="srv-detail" data-detail="seo">
+        <div class="srv-detail-icon">📈</div>
+        <h2>SEO &amp; Growth</h2>
+        <p class="srv-detail-desc">We take a technical, data-driven approach to organic growth. No fluff, no black-hat tactics — just methodical execution that compounds over time and builds genuine search authority.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">🔎</div><h4>Technical SEO Audit</h4><p>Full crawl analysis, Core Web Vitals, structured data, site architecture, and indexability fixes.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🗺</div><h4>Keyword Strategy</h4><p>Opportunity mapping, intent clustering, and a prioritised content roadmap based on your goals.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">✍️</div><h4>Content Production</h4><p>Expert-led long-form articles, landing pages, and cluster content that ranks and converts.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📊</div><h4>Monthly Reporting</h4><p>Custom dashboards, ranking reports, and strategic recommendations reviewed on monthly calls.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Status <span>Not yet started</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Technical Audit</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Content Strategy</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Implementation</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ Ongoing retainer</span>
+          <span class="time-tag">📦 From $3,500/mo</span>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div class="srv-detail" data-detail="ai">
+        <div class="srv-detail-icon">⚡</div>
+        <h2>AI Automation</h2>
+        <p class="srv-detail-desc">We design and build custom AI workflows that eliminate repetitive tasks, accelerate your team, and create entirely new product capabilities. Practical AI — not hype.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">🤖</div><h4>LLM Integration</h4><p>Claude, GPT-4, or Gemini integrated into your product or internal tools via secure, optimised API pipelines.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">🔄</div><h4>Workflow Automation</h4><p>n8n, Make, or custom automation for lead qualification, reporting, customer support, and more.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">💬</div><h4>Intelligent Chatbots</h4><p>RAG-based AI assistants trained on your data, embedded in your product or support workflow.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📉</div><h4>Process Audit</h4><p>We map your current workflows and identify the highest-ROI automation opportunities first.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Status <span>Not yet started</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Process Mapping</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Build &amp; Integration</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ 3–8 weeks typical</span>
+          <span class="time-tag">📦 Starting at $12,000</span>
+        </div>
+      </div>
+
+      <!-- MARKETING -->
+      <div class="srv-detail" data-detail="marketing">
+        <div class="srv-detail-icon">◎</div>
+        <h2>Digital Marketing</h2>
+        <p class="srv-detail-desc">Full-funnel growth campaigns across paid and organic channels. We build marketing systems that acquire customers profitably and retain them — not just vanity metrics.</p>
+        <div class="deliverables-grid">
+          <div class="deliverable"><div class="deliverable-icon">💰</div><h4>Paid Media</h4><p>Google Ads, Meta, LinkedIn — channel-appropriate creative strategy and performance optimisation.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📧</div><h4>Email Marketing</h4><p>Lifecycle sequences, newsletters, and automated flows built for engagement and revenue.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📱</div><h4>Social Strategy</h4><p>Organic content strategy, community management, and influencer partnerships where relevant.</p></div>
+          <div class="deliverable"><div class="deliverable-icon">📊</div><h4>Analytics &amp; Attribution</h4><p>GA4, Mixpanel, or custom dashboards. Know exactly which channels drive real revenue.</p></div>
+        </div>
+        <div class="srv-progress-box">
+          <div class="srv-progress-box-title">Status <span>Not yet started</span></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Strategy &amp; Planning</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+          <div class="progress-row"><div class="pr-label"><span class="pr-name">Campaign Launch</span><span class="pr-pct">0%</span></div><div class="pr-track"><div class="pr-fill" style="width:0%"></div></div></div>
+        </div>
+        <div class="srv-time-tags">
+          <span class="time-tag">⏱ Ongoing retainer</span>
+          <span class="time-tag">📦 From $4,500/mo</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ WORK ================================================================ -->
+<div class="page" id="page-work">
+  <section class="work-hero">
+    <div class="section-tag">Portfolio</div>
+    <h1 style="font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1.04;margin-bottom:16px">Selected work &amp;<br>case studies</h1>
+    <p style="color:var(--fg2);font-size:1rem;line-height:1.75;font-weight:300;max-width:520px">A curated look at the projects we're most proud of. Real results, real clients, measurable impact.</p>
+  </section>
+
+  <div class="work-filters">
+    <button class="filter-btn active" onclick="filterWork(this,'all')">All Projects</button>
+    <button class="filter-btn" onclick="filterWork(this,'design')">Design</button>
+    <button class="filter-btn" onclick="filterWork(this,'dev')">Development</button>
+    <button class="filter-btn" onclick="filterWork(this,'brand')">Branding</button>
+    <button class="filter-btn" onclick="filterWork(this,'ai')">AI / Automation</button>
+    <button class="filter-btn" onclick="filterWork(this,'seo')">SEO</button>
+  </div>
+
+  <div class="work-grid-main">
+    <div class="work-card-main featured" data-tags="design dev">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#0a0824 0%,#2d1f7a 50%,#5b6cf9 100%)"></div>
+        <div class="work-thumb-text"><h3>NOVA Analytics Platform</h3><p>SaaS Product Redesign &amp; Rebuild — 2025</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>NOVA — Complete Platform Overhaul</h4>
+          <div class="work-tags"><span class="tag">UI/UX</span><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Supabase</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300;max-width:500px">Rebuilt a B2B analytics dashboard from the ground up — new design system, faster architecture, and a 34% drop in churn within 90 days of launch.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">34%</div><div class="metric-label">Churn reduced</div></div>
+          <div class="metric"><div class="metric-val">2.1×</div><div class="metric-label">Session length</div></div>
+          <div class="metric"><div class="metric-val">$2M</div><div class="metric-label">ARR added</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card-main" data-tags="brand">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#041a0e 0%,#065c2d 60%,#10d9a0 100%)"></div>
+        <div class="work-thumb-text"><h3>Orbis Finance</h3><p>Brand Identity System — 2025</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>Orbis — Fintech Rebrand</h4>
+          <div class="work-tags"><span class="tag">Branding</span><span class="tag">Motion</span><span class="tag">Print</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300">End-to-end identity for a Series B fintech. Logo, type, colour system, brand guidelines, and all launch assets delivered in 4 weeks.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">4.9★</div><div class="metric-label">Client rating</div></div>
+          <div class="metric"><div class="metric-val">180%</div><div class="metric-label">Press lift</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card-main" data-tags="ai dev">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#12042a 0%,#5b21b6 60%,#a855f7 100%)"></div>
+        <div class="work-thumb-text"><h3>Veltrix AI</h3><p>Sales Automation Pipeline — 2025</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>Veltrix — AI Lead Pipeline</h4>
+          <div class="work-tags"><span class="tag">AI</span><span class="tag">LLM</span><span class="tag">Node.js</span><span class="tag">CRM</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300">Custom LLM-powered lead qualification system that integrated directly into their Salesforce CRM, saving 22 hours per week.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">22hrs</div><div class="metric-label">Saved/week</div></div>
+          <div class="metric"><div class="metric-val">3.4×</div><div class="metric-label">Conversion</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card-main" data-tags="seo">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#190900 0%,#92400e 60%,#f97316 100%)"></div>
+        <div class="work-thumb-text"><h3>Stratum</h3><p>Organic Growth Engine — 2024</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>Stratum — SEO &amp; Content Programme</h4>
+          <div class="work-tags"><span class="tag">SEO</span><span class="tag">Content</span><span class="tag">Analytics</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300">Technical SEO audit, content strategy, and 6-month execution. Took Stratum from 3k to 38k monthly organic visitors.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">12×</div><div class="metric-label">Organic traffic</div></div>
+          <div class="metric"><div class="metric-val">280%</div><div class="metric-label">ROI in 6mo</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card-main" data-tags="design dev brand">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#050a1a 0%,#1e3a6e 60%,#3b82f6 100%)"></div>
+        <div class="work-thumb-text"><h3>Crestline SaaS</h3><p>Product Design &amp; Dev — 2024</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>Crestline — HR Platform Build</h4>
+          <div class="work-tags"><span class="tag">Product Design</span><span class="tag">React</span><span class="tag">API</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300">Full product design and development of a B2B HR management platform, from zero to launch in 14 weeks.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">14wk</div><div class="metric-label">Zero to launch</div></div>
+          <div class="metric"><div class="metric-val">5,000+</div><div class="metric-label">Active users</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card-main" data-tags="ai design">
+      <div class="work-thumb">
+        <div class="work-thumb-bg" style="background:linear-gradient(135deg,#0a0a05 0%,#365314 60%,#65a30d 100%)"></div>
+        <div class="work-thumb-text"><h3>Lumos</h3><p>AI Dashboard Design — 2024</p></div>
+        <div class="work-hover-overlay"><div class="work-hover-btn">View Case Study &rarr;</div></div>
+      </div>
+      <div class="work-info-bar">
+        <div class="work-meta-left">
+          <h4>Lumos — AI Data Intelligence Dashboard</h4>
+          <div class="work-tags"><span class="tag">UI/UX</span><span class="tag">AI</span><span class="tag">Data Viz</span></div>
+          <p style="font-size:.82rem;color:var(--fg3);margin-top:8px;font-weight:300">Design of a real-time AI analytics dashboard for a climate-tech startup, featuring complex data visualisations.</p>
+        </div>
+        <div class="work-metrics">
+          <div class="metric"><div class="metric-val">4.8★</div><div class="metric-label">App store</div></div>
+          <div class="metric"><div class="metric-val">60%</div><div class="metric-label">Faster decisions</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-banner" style="margin-top:2px;border-radius:0">
+    <div class="cta-banner-content">
+      <h2>Your project could be next.</h2>
+      <p>Whether it's a rebrand, a product build, or an automation — let's talk about what you're trying to achieve.</p>
+      <div class="cta-banner-btns">
+        <button class="btn-primary" onclick="openContact()">Start a project &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ PROCESS ================================================================ -->
+<div class="page" id="page-process">
+  <section class="process-hero">
+    <div class="section-tag">How we work</div>
+    <h1 style="font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1.04;margin-bottom:16px">From idea to launch —<br>every step, <em style="font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">transparent</em></h1>
+    <p style="color:var(--fg2);font-size:1rem;line-height:1.75;font-weight:300;max-width:580px">A proven 5-phase workflow designed to eliminate ambiguity, maintain momentum, and deliver quality at every stage. Here's exactly how your project moves from brief to live product.</p>
+  </section>
+
+  <div class="process-layout-grid">
+    <!-- Timeline -->
+    <div class="process-track">
+
+      <div class="timeline-step">
+        <div class="step-indicator"><div class="step-circle done">✓</div></div>
+        <div class="step-body">
+          <span class="step-status-pill pill-done">✓ Completed</span>
+          <h3>01 — Discovery &amp; Strategy</h3>
+          <p>We immerse ourselves in your business, users, and market. This phase produces a shared brief, defined KPIs, and a project plan that everyone has signed off on — before a single pixel is designed.</p>
+          <ul class="task-list">
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Stakeholder interviews &amp; business analysis</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">User research &amp; competitive landscape audit</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Project brief, scope definition &amp; KPIs agreed</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Timeline, milestones, and payment schedule</span></li>
+          </ul>
+          <div class="step-meta-row">
+            <span class="step-chip">⏱ 1–2 weeks</span>
+            <span class="step-chip">📋 Deliverable: Strategy document</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="step-indicator"><div class="step-circle done">✓</div></div>
+        <div class="step-body">
+          <span class="step-status-pill pill-done">✓ Completed</span>
+          <h3>02 — Design &amp; Prototyping</h3>
+          <p>Wireframes evolve into high-fidelity, interactive prototypes. We iterate with you in real time via shared Figma files — testing ideas fast before any code is committed.</p>
+          <ul class="task-list">
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Information architecture &amp; user flows</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Lo-fi wireframes — two rounds of feedback</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">High-fidelity visual design &amp; design system</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Interactive prototype &amp; usability testing</span></li>
+          </ul>
+          <div class="step-meta-row">
+            <span class="step-chip">⏱ 2–4 weeks</span>
+            <span class="step-chip">📋 Deliverable: Figma files + design system</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="step-indicator"><div class="step-circle current">03</div></div>
+        <div class="step-body">
+          <span class="step-status-pill pill-current">⚡ In Progress</span>
+          <h3>03 — Development &amp; Build</h3>
+          <p>Clean, production-grade code. We work in two-week sprints with a live preview link so you can see and test progress continuously — not just at the end.</p>
+          <ul class="task-list">
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Environment setup, CI/CD, and repo structure</span></li>
+            <li class="task-item"><span class="task-icon ti-done">✓</span><span class="task-text done-text">Frontend build — Sprint 1 &amp; 2</span></li>
+            <li class="task-item"><span class="task-icon ti-current">→</span><span class="task-text">Backend integration &amp; API connections</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Internal QA &amp; performance benchmarking</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Staging review with client team</span></li>
+          </ul>
+          <div class="step-meta-row">
+            <span class="step-chip">⏱ 4–8 weeks</span>
+            <span class="step-chip">📋 Deliverable: Production-ready codebase</span>
+            <span class="step-chip">📅 Est. complete: June 14</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="step-indicator"><div class="step-circle upcoming">04</div></div>
+        <div class="step-body">
+          <span class="step-status-pill pill-upcoming">Upcoming</span>
+          <h3>04 — QA, Testing &amp; Optimisation</h3>
+          <p>Every device, every edge case, every performance metric. We don't ship until your Lighthouse score is green across the board and real users have validated the experience.</p>
+          <ul class="task-list">
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Cross-device &amp; cross-browser QA testing</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Accessibility audit (WCAG 2.1 AA)</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Core Web Vitals &amp; Lighthouse optimisation</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Security review &amp; load testing</span></li>
+          </ul>
+          <div class="step-meta-row">
+            <span class="step-chip">⏱ 1–2 weeks</span>
+            <span class="step-chip">📋 Deliverable: QA report + audit</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-step">
+        <div class="step-indicator"><div class="step-circle upcoming">05</div></div>
+        <div class="step-body" style="padding-bottom:0">
+          <span class="step-status-pill pill-upcoming">Upcoming</span>
+          <h3>05 — Launch &amp; Handover</h3>
+          <p>Go-live is planned meticulously to avoid downtime and surprises. After launch, you receive full documentation, a recorded walkthrough, and a 30-day support window.</p>
+          <ul class="task-list">
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">DNS cutover &amp; production deployment</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Post-launch monitoring (24hr)</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">Full documentation &amp; recorded walkthrough</span></li>
+            <li class="task-item"><span class="task-icon ti-upcoming">○</span><span class="task-text" style="color:var(--fg3)">30-day bug-fix support window</span></li>
+          </ul>
+          <div class="step-meta-row" style="margin-top:12px">
+            <span class="step-chip">⏱ 1 week</span>
+            <span class="step-chip">🚀 Est. launch: July 2</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar panel -->
+    <div class="process-sidebar-panel">
+      <div class="psb-title">Project Summary</div>
+      <div class="psb-card">
+        <div class="psb-card-title">Current Phase</div>
+        <div class="psb-card-val">Build</div>
+        <div class="psb-card-sub">Phase 3 of 5 · Active</div>
+      </div>
+      <div class="psb-card">
+        <div class="psb-card-title">Est. Launch</div>
+        <div class="psb-card-val">Jul 2</div>
+        <div class="psb-card-sub">On track · 6 weeks remaining</div>
+      </div>
+      <div class="psb-card" style="margin-bottom:20px">
+        <div class="psb-card-title">Overall Completion</div>
+        <div class="psb-card-val">47%</div>
+        <div class="psb-card-sub">+8% this sprint</div>
+      </div>
+
+      <div class="psb-title">Phase Progress</div>
+      <div class="psb-progress">
+        <div class="psb-prog-row">
+          <div class="psb-prog-label"><span>Discovery</span><span style="color:var(--green)">100%</span></div>
+          <div class="psb-prog-track"><div class="psb-prog-fill fill-green" style="width:100%"></div></div>
+        </div>
+        <div class="psb-prog-row">
+          <div class="psb-prog-label"><span>Design</span><span style="color:var(--green)">100%</span></div>
+          <div class="psb-prog-track"><div class="psb-prog-fill fill-green" style="width:100%"></div></div>
+        </div>
+        <div class="psb-prog-row">
+          <div class="psb-prog-label"><span>Development</span><span style="color:var(--accent)">63%</span></div>
+          <div class="psb-prog-track"><div class="psb-prog-fill fill-accent" style="width:63%"></div></div>
+        </div>
+        <div class="psb-prog-row">
+          <div class="psb-prog-label"><span>QA &amp; Testing</span><span style="color:var(--fg3)">0%</span></div>
+          <div class="psb-prog-track"><div class="psb-prog-fill fill-bg" style="width:0%"></div></div>
+        </div>
+        <div class="psb-prog-row">
+          <div class="psb-prog-label"><span>Launch</span><span style="color:var(--fg3)">0%</span></div>
+          <div class="psb-prog-track"><div class="psb-prog-fill fill-bg" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="psb-title" style="margin-top:20px">This Sprint</div>
+      <div class="psb-card" style="margin-bottom:10px">
+        <div class="psb-card-title">Sprint Goal</div>
+        <div style="font-size:.82rem;color:var(--fg2);margin-top:4px;line-height:1.6;font-weight:300">Complete backend API integration and begin internal QA on core user flows.</div>
+      </div>
+      <div class="psb-card">
+        <div class="psb-card-title">Next Sync</div>
+        <div style="font-size:.95rem;font-weight:600;color:var(--fg);margin-top:4px">Thursday, 2pm IST</div>
+        <div style="font-size:.75rem;color:var(--fg3);margin-top:2px">Sprint review + backlog grooming</div>
+      </div>
+
+      <button class="btn-primary" onclick="openContact()" style="width:100%;margin-top:20px;justify-content:center">Contact Your Team →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ ABOUT ================================================================ -->
+<div class="page" id="page-about">
+  <section class="about-hero">
+    <div class="section-tag">About AXON</div>
+    <h1 style="font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1.04;margin-bottom:16px">A studio obsessed<br>with <em style="font-style:normal;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">craft</em></h1>
+    <p style="color:var(--fg2);font-size:1rem;line-height:1.75;font-weight:300;max-width:560px">We started AXON because we were tired of agencies that over-promised and under-delivered. Today we're a small, senior team that cares deeply about the work — and the people we do it for.</p>
+  </section>
+
+  <div class="about-split">
+    <div class="about-text-side">
+      <div class="section-tag">Our mission</div>
+      <h2 class="about-mission">To build digital products that <em>actually move the needle</em> — not just look good in a portfolio.</h2>
+      <p>AXON Studio was founded in 2019 with a simple principle: do fewer projects, do them exceptionally well, and build relationships that last longer than a single engagement.</p>
+      <p>We're a small team of designers, engineers, and strategists who've worked across startups, scale-ups, and global brands. We brought the best of that experience into a studio built for the way ambitious companies actually need to work.</p>
+      <p>We don't have a revolving door of junior staff or a 100-slide pitch deck. We have senior practitioners who get their hands dirty and a process that actually works.</p>
+    </div>
+    <div class="about-visual-box">
+      <div class="about-orb"></div>
+      <div class="about-visual-content">
+        <div class="big-year">2019</div>
+        <p>Founded in Bangalore, India</p>
+        <p style="margin-top:6px;color:var(--fg3);font-size:.82rem">Now working globally</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="values-section">
+    <div class="grid-row">
+      <div>
+        <div class="section-tag">What we believe</div>
+        <h2 class="section-title">Our values in practice</h2>
+      </div>
+      <div class="section-sub">These aren't posted on a wall. They're how we actually operate — the principles that shape every project decision.</div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="val-icon">🎯</div>
+        <h4>Outcomes over output</h4>
+        <p>We care about whether your business grows, not how many deliverables we ship. If something isn't working, we say so and adjust — even mid-project.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🔍</div>
+        <h4>Radical transparency</h4>
+        <p>No surprises. If we hit a blocker, you know the same day. If we disagree with your direction, we tell you respectfully — and explain why.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">⚡</div>
+        <h4>Speed with substance</h4>
+        <p>Fast doesn't mean sloppy. We move quickly because we're well-organised and senior enough to make decisions without layers of approval.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🤝</div>
+        <h4>Partnership, not service</h4>
+        <p>The best work happens when we feel like co-owners of your problem. We ask uncomfortable questions and push back because we genuinely want you to succeed.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">📐</div>
+        <h4>Details are not optional</h4>
+        <p>We obsess over typography, microcopy, transition timing, and code quality. The details are what separate good from exceptional.</p>
+      </div>
+      <div class="value-card">
+        <div class="val-icon">🌱</div>
+        <h4>Build to last</h4>
+        <p>We don't optimise for the handover date. We write code and design systems you'll be proud of two years from now — not just on launch day.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <div class="grid-row">
+      <div>
+        <div class="section-tag">The team</div>
+        <h2 class="section-title">People behind the work</h2>
+      </div>
+      <div class="section-sub">Senior practitioners, no middlemen. The people you talk to are the people building your product.</div>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar-ring">AK</div>
+        <div class="team-name">Arjun Kumar</div>
+        <div class="team-role">Founder &amp; Design Director</div>
+        <div class="team-skills"><span class="skill-pill">Strategy</span><span class="skill-pill">Brand</span><span class="skill-pill">Product</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#10b981,#059669)">PR</div>
+        <div class="team-name">Priya Rao</div>
+        <div class="team-role">Lead Engineer</div>
+        <div class="team-skills"><span class="skill-pill">React</span><span class="skill-pill">Node.js</span><span class="skill-pill">AWS</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#f59e0b,#d97706)">SM</div>
+        <div class="team-name">Sara Mehta</div>
+        <div class="team-role">Senior UX Designer</div>
+        <div class="team-skills"><span class="skill-pill">Figma</span><span class="skill-pill">Research</span><span class="skill-pill">Motion</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#ef4444,#dc2626)">VN</div>
+        <div class="team-name">Vikram Nair</div>
+        <div class="team-role">Growth &amp; SEO Lead</div>
+        <div class="team-skills"><span class="skill-pill">SEO</span><span class="skill-pill">Paid</span><span class="skill-pill">Analytics</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">ND</div>
+        <div class="team-name">Neha Desai</div>
+        <div class="team-role">AI &amp; Automation Engineer</div>
+        <div class="team-skills"><span class="skill-pill">LLMs</span><span class="skill-pill">Python</span><span class="skill-pill">n8n</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">RK</div>
+        <div class="team-name">Rohan Kapoor</div>
+        <div class="team-role">Brand &amp; Motion Designer</div>
+        <div class="team-skills"><span class="skill-pill">Identity</span><span class="skill-pill">Figma</span><span class="skill-pill">After Effects</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#ec4899,#be185d)">IS</div>
+        <div class="team-name">Isha Sharma</div>
+        <div class="team-role">Content &amp; Copy Strategist</div>
+        <div class="team-skills"><span class="skill-pill">Copy</span><span class="skill-pill">Content</span><span class="skill-pill">SEO</span></div>
+      </div>
+      <div class="team-card">
+        <div class="avatar-ring" style="background:linear-gradient(135deg,#14b8a6,#0f766e)">AP</div>
+        <div class="team-name">Aditya Pillai</div>
+        <div class="team-role">Full Stack Developer</div>
+        <div class="team-skills"><span class="skill-pill">Next.js</span><span class="skill-pill">Postgres</span><span class="skill-pill">DevOps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner">
+    <div class="cta-banner-content">
+      <h2>Want to work with us?</h2>
+      <p>We take on a small number of projects each quarter to keep quality high. If you're building something ambitious, let's talk.</p>
+      <div class="cta-banner-btns">
+        <button class="btn-primary" onclick="openContact()">Get in touch &rarr;</button>
+        <button class="btn-secondary" onclick="navigate('process')">See our process</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-left">
+    <div class="logo" style="cursor:default"><div class="logo-dot"></div>AXON Studio</div>
+    <p>Premium digital agency. Bangalore, India — Working globally.</p>
+    <p style="margin-top:4px">© 2026 AXON Studio. All rights reserved.</p>
+  </div>
+  <div class="footer-right">
+    <span class="footer-link" onclick="navigate('services')">Services</span>
+    <span class="footer-divider">·</span>
+    <span class="footer-link" onclick="navigate('work')">Work</span>
+    <span class="footer-divider">·</span>
+    <span class="footer-link" onclick="navigate('process')">Process</span>
+    <span class="footer-divider">·</span>
+    <span class="footer-link" onclick="navigate('about')">About</span>
+    <span class="footer-divider">·</span>
+    <span class="footer-link" onclick="openContact()">Contact</span>
+  </div>
+</footer>
+
+<!-- ===== CONTACT MODAL ===== -->
+<div class="modal-overlay" id="contactModal" onclick="closeContactOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeContact()">✕</button>
+    <h2>Start a project</h2>
+    <p>Tell us what you're building. We'll respond within 24 hours with honest thoughts and next steps.</p>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">First name</label><input class="form-input" type="text" placeholder="Arjun"></div>
+      <div class="form-group"><label class="form-label">Last name</label><input class="form-input" type="text" placeholder="Kumar"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@company.com"></div>
+    <div class="form-group"><label class="form-label">Company / Project</label><input class="form-input" type="text" placeholder="NOVA Analytics"></div>
+    <div class="form-group">
+      <label class="form-label">Service needed</label>
+      <select class="form-select">
+        <option>Web Development</option>
+        <option>UI/UX Design</option>
+        <option>Branding</option>
+        <option>SEO &amp; Growth</option>
+        <option>AI Automation</option>
+        <option>Digital Marketing</option>
+        <option>Multiple services</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Approximate budget</label>
+      <select class="form-select">
+        <option>$5,000 – $15,000</option>
+        <option>$15,000 – $35,000</option>
+        <option>$35,000 – $75,000</option>
+        <option>$75,000+</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Tell us about your project</label><textarea class="form-textarea" placeholder="What are you building, what's the goal, and when do you need it?"></textarea></div>
+    <button class="form-submit" onclick="submitForm()">Send message →</button>
+  </div>
+</div>
+
+<script>
+// ===== NAVIGATION =====
+function navigate(page, service) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navLink = document.querySelector('[data-page="' + page + '"]');
+  if (navLink) navLink.classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'services' && service) {
+    setTimeout(() => showService(service), 100);
+  }
+  // Animate progress bars on services page
+  if (page === 'services') {
+    setTimeout(() => {
+      document.getElementById('overallFill').style.width = '35%';
+    }, 300);
+  }
+}
+
+// ===== SERVICES SIDEBAR =====
+function showService(id) {
+  document.querySelectorAll('.srv-nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.srv-detail').forEach(d => d.classList.remove('active'));
+  const navItem = document.querySelector('[data-svc="' + id + '"]');
+  const detailPanel = document.querySelector('[data-detail="' + id + '"]');
+  if (navItem) navItem.classList.add('active');
+  if (detailPanel) detailPanel.classList.add('active');
+  // Animate progress bars
+  setTimeout(() => {
+    detailPanel.querySelectorAll('.pr-fill').forEach(bar => {
+      bar.style.width = bar.style.width;
+    });
+  }, 50);
+}
+
+// ===== TESTIMONIALS SLIDER =====
+let testiIdx = 0;
+function slideTestimonial(dir) {
+  const track = document.getElementById('testiTrack');
+  const cards = track.querySelectorAll('.testi-card');
+  const maxIdx = cards.length - 2;
+  testiIdx = Math.max(0, Math.min(testiIdx + dir, maxIdx));
+  const cardW = cards[0].offsetWidth + 20;
+  track.style.transform = 'translateX(-' + (testiIdx * cardW) + 'px)';
+}
+
+// ===== FAQ =====
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ===== WORK FILTER =====
+function filterWork(btn, tag) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card-main').forEach(card => {
+    if (tag === 'all') {
+      card.style.display = '';
+    } else {
+      const tags = card.getAttribute('data-tags') || '';
+      card.style.display = tags.includes(tag) ? '' : 'none';
+    }
+  });
+}
+
+// ===== CONTACT MODAL =====
+function openContact() {
+  document.getElementById('contactModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeContact() {
+  document.getElementById('contactModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeContactOnOverlay(e) {
+  if (e.target === document.getElementById('contactModal')) closeContact();
+}
+function submitForm() {
+  const btn = document.querySelector('.form-submit');
+  btn.textContent = 'Sending…';
+  setTimeout(() => {
+    btn.textContent = '✓ Message sent! We\'ll be in touch within 24hrs.';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#000';
+    setTimeout(closeContact, 2500);
+  }, 1200);
+}
+
+// ===== KEYBOARD ESC =====
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  showService('web');
+  // Stagger hero animations
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent) heroContent.style.animation = 'pageIn .6s ease .1s both';
+});
+</script>
+</body>
+</html>
